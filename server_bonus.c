@@ -6,7 +6,7 @@
 /*   By: ilasrarf <ilasrarf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 18:22:49 by ilasrarf          #+#    #+#             */
-/*   Updated: 2023/02/08 16:12:24 by ilasrarf         ###   ########.fr       */
+/*   Updated: 2023/02/09 19:41:10 by ilasrarf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@ int	ft_pwr(int x)
 	return (sum);
 }
 
+void	ft_check_pid(int *se, int *new, int *i, unsigned char *buf)
+{
+	if (*se != *new)
+	{
+		*se = *new;
+		*i = 7;
+		*buf = 0;
+	}
+}
+
 void	ft_handel(int num, siginfo_t *info, void *f)
 {
 	static int				i = 7;
@@ -38,12 +48,7 @@ void	ft_handel(int num, siginfo_t *info, void *f)
 	if (!se)
 		se = info->si_pid;
 	new = info->si_pid;
-	if (se != new)
-	{
-		se = new;
-		i = 7;
-		buf = 0;
-	}
+	ft_check_pid(&se, &new, &i, &buf);
 	if (i >= 0)
 	{
 		if (num == SIGUSR2)
@@ -60,14 +65,14 @@ void	ft_handel(int num, siginfo_t *info, void *f)
 	}
 }
 
-int	main()
+int	main(void)
 {
-	struct	sigaction sig;
+	struct sigaction	sig;
 
 	sig.sa_sigaction = ft_handel;
 	sig.sa_flags = SA_SIGINFO;
 	printf("%d\n", getpid());
-	while(1)
+	while (1)
 	{
 		sigaction(SIGUSR1, &sig, NULL);
 		sigaction(SIGUSR2, &sig, NULL);
