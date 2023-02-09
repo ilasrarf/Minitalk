@@ -6,11 +6,11 @@
 /*   By: ilasrarf <ilasrarf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:41:20 by ilasrarf          #+#    #+#             */
-/*   Updated: 2023/02/06 15:16:51 by ilasrarf         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:40:00 by ilasrarf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minitalk.h"
+# include "minitalk.h"
 
 int	ft_pwr(int x)
 {
@@ -65,7 +65,7 @@ int main()
 	struct	sigaction sig;
 
 	sig.sa_sigaction = ft_handel;
-	sig.sa_flags = SA_SIGINFO;
+	//sig.sa_flags = SA_SIGINFO;
 	printf("%d\n", getpid());
 	while(1)
 	{
